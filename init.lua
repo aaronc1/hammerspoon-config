@@ -12,7 +12,7 @@ spoon.SpoonInstall:andUse("URLDispatcher",
                  config = {
                    url_patterns = {
                      { "https?://admin.esalon.com",         FirefoxBrowser },
-                     { "https?://reports.esalon.com",         FirefoxBrowser },
+                     { "https?://reports.%a+.?esalon.com",         FirefoxBrowser },
                      { "https?://www%d*.%a+.?esalon.com",         FirefoxBrowser },
                      { "https?://www%d*.%a+.?colorsmith.co",         FirefoxBrowser },
                      { "https?://admin%d*.%a+.?esalon.com",         FirefoxBrowser },
