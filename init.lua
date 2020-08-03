@@ -55,7 +55,7 @@ local dualLayout = {
       {hs.application.find("iterm2"), nil, desktopScreen, nil, nil, term_geo},
       {hs.application.find("iterm2"), nil, desktopScreen, nil, nil, term_geo},
       {hs.application.find("textedit"), nil, desktopScreen, nil, nil, hs.geometry.rect(1626, 790, 484, 604)},
-      {hs.application.find("firefox"), nil, laptopScreen, nil, nil, hs.geometry.rect(585,1440,1435,900)},
+      {hs.application.find("firefox"), nil, laptopScreen, nil, nil, hs.geometry.rect(480,1440,1435,900)},
      -- {hs.application.find("firefox"), nil, laptopScreen, hs.layout.maximized, nil, nil},
 }
 local singleLayout = {
