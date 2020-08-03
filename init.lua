@@ -12,7 +12,7 @@ spoon.SpoonInstall:andUse("URLDispatcher",
                  config = {
                    url_patterns = {
                      { "https?://admin.esalon.com",         FirefoxBrowser },
-                     { "https?://reports.%a+.?esalon.com",         FirefoxBrowser },
+                     { "https?://reports.%a*.?esalon.com",         FirefoxBrowser },
                      { "https?://www%d*.%a+.?esalon.com",         FirefoxBrowser },
                      { "https?://www%d*.%a+.?colorsmith.co",         FirefoxBrowser },
                      { "https?://admin%d*.%a+.?esalon.com",         FirefoxBrowser },
@@ -123,16 +123,17 @@ hs.hotkey.bind(mash_app, "7", function()
 end)
 hs.hotkey.bind(mash_app, "8", function() hs.application.launchOrFocus("Calculator") end)
 hs.hotkey.bind(mash_app, "9", function() hs.application.launchOrFocus("Evernote") end)
+hs.hotkey.bind(mash_app, "t", function()
+  resizewindowz("righthalf")
+end)
 hs.hotkey.bind(mash_app, "r", function()
-  local win = hs.window.focusedWindow()
-  local f = win:frame()
-  local screen = win:screen()
-  local max = screen:frame()
-  f.x = max.x + ((max.w / 3) * 2)
-  f.y = max.y
-  f.w = max.w / 3
-  f.h = max.h
-  win:setFrame(f)
+  resizewindowz("rightthird")
+end)
+hs.hotkey.bind(mash_app, "e", function()
+  resizewindowz("righthalf")
+end)
+hs.hotkey.bind(mash_app, "f", function()
+  resizewindowz("full")
 end)
 hs.hotkey.bind(mash_app, "q", function()
   local win = hs.window.focusedWindow()
@@ -167,30 +168,32 @@ hs.hotkey.bind(mash_app, "c", function()
   f.h = max.h / 2
   win:setFrame(f)
 end)
-hs.hotkey.bind(mash_app, "e", function()
+hs.hotkey.bind(mash_app, "n", function()
+  local win = hs.window.focusedWindow()
+  local screen = win:screen()
+  win:move(win:frame():toUnitRect(screen:frame()), screen:next(), true, 0)
+end)
+function resizewindowz(where)
   local win = hs.window.focusedWindow()
   local f = win:frame()
   local screen = win:screen()
   local max = screen:frame()
-  f.x = max.x + (max.w / 2)
+  local x = max.x
+  local w = max.w
+  if (where == "rightthird") then
+    x = max.x + ((max.w / 3) * 2)
+    w = max.w / 3
+  end
+  if (where == "righthalf") then
+    x = max.x + (max.w / 2)
+    w = max.w / 2
+  end
+  f.x = x
   f.y = max.y
-  f.w = max.w / 2
+  f.w = w
   f.h = max.h
   win:setFrame(f)
-end)
-hs.hotkey.bind(mash_app, "f", function()
-  local win = hs.window.focusedWindow()
-  local f = win:frame()
-  local screen = win:screen()
-  local max = screen:frame()
-  f.x = max.x
-  f.y = max.y
-  f.w = max.w
-  f.h = max.h
-  win:setFrame(f)
-end)
-
-
+end
 function applicationWatcher(appName, eventType, appObject)
     if (eventType == hs.application.watcher.activated) then
         if (appName == "Finder") then
