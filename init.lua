@@ -15,6 +15,7 @@ spoon.SpoonInstall:andUse("URLDispatcher",
                      { "https?://reports.%a*.?esalon.com",         FirefoxBrowser },
                      { "https?://www%d*.%a+.?esalon.com",         FirefoxBrowser },
                      { "https?://www%d*.%a+.?colorsmith.co",         FirefoxBrowser },
+                     { "https?://www%d*.%a+.?aurahaircare.com",         FirefoxBrowser },
                      { "https?://admin%d*.%a+.?esalon.com",         FirefoxBrowser },
                    },
                    default_handler = DefaultBrowser
@@ -32,9 +33,9 @@ function term_geo(window)
   local numScreens = #hs.screen.allScreens()
   if numScreens == 2 then
     if window:id() == first_term then
-       return hs.geometry.rect(780, 38, 840, 1396)
+       return hs.geometry.rect(1980, 38, 840, 1396)
     elseif window:id() == second_term then
-       return hs.geometry.rect(1, 60, 780, 1371)
+       return hs.geometry.rect(1200, 60, 780, 1371)
     end
   elseif numScreens == 1 then
     if window:id() == first_term then
@@ -45,19 +46,28 @@ function term_geo(window)
   end
 end
 
--- local laptopScreen = "Color LCD"
+--local desktopScreen = "DELL U2717D"
+--local laptopScreen = "Built-in Retina Display"
 local laptopScreen = hs.screen(69734208)
-local desktopScreen = "DELL U2717D"
+local desktopScreen = "G34WQC"
 local dualLayout = {
-      {hs.application.find("slack"), nil, desktopScreen, nil, nil, hs.geometry.rect(1515, 30, 1024, 822)},
-      {hs.application.find("discord"), nil, desktopScreen, nil, nil, hs.geometry.rect(1515, 0, 1024, 822)},
-      {hs.application.find("chrome"), nil, desktopScreen, nil, nil, hs.geometry.rect(0, 0, 1620, 1400)},
-      {hs.application.find("calculator"), nil, desktopScreen, nil, nil, hs.geometry.rect(2110, 830, 0, 0)},
-      {hs.application.find("evernote"), nil, desktopScreen, nil, nil, hs.geometry.rect(1317, 0, 1023, 762)},
+--      {hs.application.find("slack"), nil, laptopScreen, nil, nil, hs.geometry.rect(-500, 300, 600, 600)},
+--      {hs.application.find("slack"), nil, laptopScreen, hs.layout.left75, nil, nil},
+      {hs.application.find("slack"), nil, laptopScreen, hs.geometry.rect(0, 0, 0.82, 1), nil, nil},
+      {hs.application.find("microsoft teams"), nil, laptopScreen, hs.geometry.rect(0, 0, 0.82, 1), nil, nil},
+--      {hs.application.find("signal"), nil, desktopScreen, nil, nil, hs.geometry.rect(1515, 30, 900, 822)},
+      {hs.application.find("signal"), nil, laptopScreen, hs.layout.left75, nil, nil},
+--      {hs.application.find("discord"), nil, desktopScreen, nil, nil, hs.geometry.rect(1515, 0, 1024, 822)},
+      {hs.application.find("discord"), nil, laptopScreen, hs.layout.left75, nil, nil},
+      {hs.application.find("chrome"), nil, desktopScreen, nil, nil, hs.geometry.rect(1200, 0, 1620, 1400)},
+--      {hs.application.find("calculator"), nil, desktopScreen, nil, nil, hs.geometry.rect(2910, 530, 0, 0)},
+      {hs.application.find("calculator"), nil, laptopScreen, hs.geometry.unitrect(0.83,0.65,0.20,0.35), nil, nil},
+      {hs.application.find("evernote"), nil, desktopScreen, nil, nil, hs.geometry.rect(2417, 0, 1023, 762)},
+      {hs.application.find("yt music"), nil, desktopScreen, nil, nil, hs.geometry.rect(2417, 0, 1023, 762)},
       {hs.application.find("iterm2"), nil, desktopScreen, nil, nil, term_geo},
       {hs.application.find("iterm2"), nil, desktopScreen, nil, nil, term_geo},
-      {hs.application.find("textedit"), nil, desktopScreen, nil, nil, hs.geometry.rect(1626, 790, 484, 604)},
-      -- {hs.application.find("firefox"), nil, laptopScreen, nil, nil, hs.geometry.rect(0,0,800,500)}
+      {hs.application.find("textedit"), nil, desktopScreen, nil, nil, hs.geometry.rect(2826, 790, 484, 604)},
+      {hs.application.find("firefox"), nil, desktopScreen, nil, nil, hs.geometry.rect(0,0,1200,1400)}
       -- {hs.application.find("firefox"), nil, laptopScreen, hs.layout.maximized, nil, nil},
 }
 local singleLayout = {
@@ -125,22 +135,16 @@ hs.hotkey.bind(mash_app, "4", function()
   end
 end)
 hs.hotkey.bind(mash_app, "5", function() 
-  comm_app = hs.application.find("Slack")
-  if (comm_app:isFrontmost() == true) then
-    hs.application.launchOrFocus("Signal")
-  else
-    hs.application.launchOrFocus("Slack")
-  end
+  hs.application.launchOrFocus("Slack")
 end)
-hs.hotkey.bind(mash_app, "6", function() hs.application.launchOrFocus("zoom.us") end)
 hs.hotkey.bind(mash_app, "7", function() 
   hs.application.launchOrFocus("TextEdit")
   textedit_app = hs.application.find("textedit")
   textedit_app:selectMenuItem({"Window", "Bring All to Front"})
 end)
-hs.hotkey.bind(mash_app, "8", function() hs.application.launchOrFocus("Calculator") end)
+hs.hotkey.bind(mash_app, "8", function() hs.application.launchOrFocus("Discord") end)
 hs.hotkey.bind(mash_app, "9", function() hs.application.launchOrFocus("Evernote") end)
-hs.hotkey.bind(mash_app, "0", function() hs.application.launchOrFocus("Discord") end)
+hs.hotkey.bind(mash_app, "0", function() hs.application.launchOrFocus("Signal") end)
 hs.hotkey.bind(mash_app, "b", function() 
   output, status, t, rc = hs.execute("/usr/local/bin/blueutil -p")
   -- foo = hs.logger.new('test', 'debug')
@@ -155,6 +159,24 @@ hs.hotkey.bind(mash_app, "b", function()
     hs.execute("/usr/local/bin/blueutil -p 1")
     hs.alert.show("Bluetooth on");
   end
+end)
+
+hs.hotkey.bind(mash_app, "=", function() hs.application.launchOrFocus("zoom.us") end)
+blinkStatus = ""
+hs.hotkey.bind(mash_app, "`", function()
+    if blinkStatus == "" then
+      hs.alert("Blink Red")
+      blinkStatus = "red"
+      hs.execute("curl 'http://localhost:8934/blink1/fadeToRGB?rgb=%23ff0000'")
+    elseif blinkStatus == "red" then
+      hs.alert("Blink Green")
+      blinkStatus = "green"
+      hs.execute("curl 'http://localhost:8934/blink1/fadeToRGB?rgb=%2300ff00'")
+    elseif blinkStatus == "green" then
+      hs.alert("Blink Off")
+      blinkStatus = ""
+      hs.execute("curl 'http://localhost:8934/blink1/off'")
+    end
 end)
 hs.hotkey.bind(mash_app, "t", function()
   resizewindowz("righthalf")
@@ -186,7 +208,7 @@ hs.hotkey.bind(mash_app, "w", function()
   local max = screen:frame()
   f.x = max.x
   f.y = max.y
-  f.w = max.w / 1.5
+  f.w = max.w * 0.35
   f.h = max.h
   win:setFrame(f)
 end)
@@ -225,8 +247,8 @@ function resizewindowz(where)
   local x = max.x
   local w = max.w
   if (where == "rightthird") then
-    x = max.x + ((max.w / 3) * 2)
-    w = max.w / 3
+    x = max.x + ((max.w / 3.2) * 2)
+    w = max.w / 2.7
   end
   if (where == "righthalf") then
     x = max.x + (max.w / 2)
@@ -248,6 +270,16 @@ function applicationWatcher(appName, eventType, appObject)
 end
 appWatcher = hs.application.watcher.new(applicationWatcher)
 appWatcher:start()
+
+function turnOnBlink()
+  hs.alert.show("Blink On")
+  hs.execute("curl 'http://localhost:8934/blink1/fadeToRGB?rgb=%23ffcc00'")
+end
+
+function turnOffBlink()
+  hs.alert.show("Blink Off")
+  hs.execute("curl 'http://localhost:8934/blink1/off'")
+end
 
 --[[
 function sleepWatch(eventType)
@@ -278,6 +310,20 @@ function reloadConfig(files)
 end
 myWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig):start()
 hs.alert.show("Config loaded")
+
+
+updateZoomStatus = function(event)
+  hs.printf("updateZoomStatus(%s)", event)
+  if (event == "from-running-to-meeting") then
+     hs.execute("curl 'http://localhost:8934/blink1/fadeToRGB?rgb=%23ff0000'")
+  elseif (event == "from-meeting-to-running") or (event == "from-running-to-closed") then
+     hs.execute("curl 'http://localhost:8934/blink1/off'")
+  end
+end
+
+hs.loadSpoon("Zoom")
+spoon.Zoom:setStatusCallback(updateZoomStatus)
+spoon.Zoom:start()
 
 
 --[[ Show all running applications in console
